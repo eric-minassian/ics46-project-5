@@ -23,7 +23,8 @@ private:
 public:
 
 	// You also need a constructor and a destructor.
-
+	MyPriorityQueue();
+	~MyPriorityQueue();
 
  	size_t size() const noexcept;
 	bool isEmpty() const noexcept;
@@ -43,7 +44,18 @@ public:
 };
 
 
+template<typename Object>
+MyPriorityQueue<Object>::MyPriorityQueue()
+{
 
+}
+
+
+template<typename Object>
+MyPriorityQueue<Object>::~MyPriorityQueue()
+{
+	
+}
 
 template<typename Object>
 size_t MyPriorityQueue<Object>::size() const noexcept
