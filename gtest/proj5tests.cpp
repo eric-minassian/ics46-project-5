@@ -157,6 +157,26 @@ TEST(Additional1, Insert1) {
       EXPECT_EQ(mpq.min(), v[0]);
     }
   }
+
+  EXPECT_EQ(mpq.size(), 0);
+
+  for (int i = 0; i < 100000; i++) {
+    int r = rand() % 100000;
+    v.push_back(r);
+    mpq.insert(r);
+  }
+
+  std::sort(v.begin(), v.end());
+
+  EXPECT_EQ(mpq.min(), v[0]);
+
+  for (int i = 0; i < 100000; i++) {
+    mpq.extractMin();
+    v.erase(v.begin());
+    if (v.size() > 0) {
+      EXPECT_EQ(mpq.min(), v[0]);
+    }
+  }
 }
 
 TEST(Additional2, AntToFox) {
@@ -247,7 +267,7 @@ TEST(Additional2, SweetToAloof) {
 TEST(Additional2, AntToAnt) {
   std::string WORD_ONE = "ant";
   std::string WORD_TWO = "ant";
-  auto CORRECT_LENGTH = 1;
+  auto CORRECT_LENGTH = 0;
 
   std::unordered_set<std::string> words;
   std::ifstream in("words.txt");
@@ -258,7 +278,7 @@ TEST(Additional2, AntToAnt) {
   std::ifstream in2("words.txt");
 
   EXPECT_EQ(r.size(), CORRECT_LENGTH);
-  EXPECT_TRUE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+  EXPECT_FALSE(validConversion(r, WORD_ONE, WORD_TWO, in2));
 }
 
 TEST(Additional2, AtToAnt) {
@@ -277,4 +297,196 @@ TEST(Additional2, AtToAnt) {
   EXPECT_EQ(r.size(), CORRECT_LENGTH);
   EXPECT_FALSE(validConversion(r, WORD_ONE, WORD_TWO, in2));
 }
+
+TEST(Additional2, ManToApe) {
+  std::string WORD_ONE = "man";
+  std::string WORD_TWO = "ape";
+  auto CORRECT_LENGTH = 6;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_TRUE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, ColdToWarm) {
+  std::string WORD_ONE = "cold";
+  std::string WORD_TWO = "warm";
+  auto CORRECT_LENGTH = 5;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_TRUE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, FoolToSage) {
+  std::string WORD_ONE = "fool";
+  std::string WORD_TWO = "sage";
+  auto CORRECT_LENGTH = 7;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_TRUE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, ElectroencephalogramToNondeterministically) {
+  std::string WORD_ONE = "electroencephalogram";
+  std::string WORD_TWO = "nondeterministically";
+  auto CORRECT_LENGTH = 0;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_FALSE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, AnthropomorphicallyToIncomprehensibility) {
+  std::string WORD_ONE = "anthropomorphically";
+  std::string WORD_TWO = "incomprehensibility";
+  auto CORRECT_LENGTH = 0;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_FALSE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, BoyishToPaunch) {
+  std::string WORD_ONE = "boyish";
+  std::string WORD_TWO = "paunch";
+  auto CORRECT_LENGTH = 0;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_FALSE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, BoyishToPaunch2) {
+  std::string WORD_ONE = "boyish";
+  std::string WORD_TWO = "paunchw";
+  auto CORRECT_LENGTH = 0;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_FALSE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, EmptyToEmpty) {
+  std::string WORD_ONE = "";
+  std::string WORD_TWO = "";
+  auto CORRECT_LENGTH = 0;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_FALSE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, SmogToPush) {
+  std::string WORD_ONE = "smog";
+  std::string WORD_TWO = "push";
+  auto CORRECT_LENGTH = 8;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("2019scrabble.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("2019scrabble.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_TRUE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, ChangeToComedo) {
+  std::string WORD_ONE = "change";
+  std::string WORD_TWO = "comedo";
+  auto CORRECT_LENGTH = 19;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("2019scrabble.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("2019scrabble.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_TRUE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, AtlasesToCabaret) {
+  std::string WORD_ONE = "atlases";
+  std::string WORD_TWO = "cabaret";
+  auto CORRECT_LENGTH = 34;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("2019scrabble.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  for (auto i : r) {
+    std::cout << i << std::endl;
+  }
+
+  std::ifstream in2("2019scrabble.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_TRUE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
 } // namespace

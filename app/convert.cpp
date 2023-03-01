@@ -34,11 +34,8 @@ struct Node {
 std::vector<std::string> convert(const std::string &s1, const std::string &s2,
                                  const std::unordered_set<std::string> &words) {
 
-  if (s1.size() != s2.size()) {
-    return {};
-  }
-
-  if (s1 == "" || s2 == "") {
+  if ((s1.size() != s2.size()) || (s1 == s2) || (s1 == "" || s2 == "") ||
+      (words.find(s1) == words.end()) || (words.find(s2) == words.end())) {
     return {};
   }
 
