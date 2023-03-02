@@ -24,11 +24,24 @@ void loadWordsIntoTable(std::unordered_set<std::string> &words,
 struct Node {
   std::string word;
   unsigned value;
+  unsigned lc_distance;
 
-  Node(const std::string &word, unsigned value) : word(word), value(value) {}
+  Node(const std::string &word, unsigned value, unsigned lc_distance)
+      : word(word), value(value), lc_distance(lc_distance) {}
 
-  bool operator<(const Node &other) const { return value < other.value; }
-  bool operator>(const Node &other) const { return value > other.value; }
+  bool operator<(const Node &other) const {
+    if (value == other.value) {
+      return lc_distance < other.lc_distance;
+    }
+    return value < other.value;
+  }
+
+  bool operator>(const Node &other) const {
+    if (value == other.value) {
+      return lc_distance > other.lc_distance;
+    }
+    return value > other.value;
+  }
 };
 
 std::vector<std::string> convert(const std::string &s1, const std::string &s2,
@@ -43,7 +56,7 @@ std::vector<std::string> convert(const std::string &s1, const std::string &s2,
   std::map<std::string, std::string> map;
   MyPriorityQueue<Node> queue;
 
-  Node node(s1, 0);
+  Node node(s1, 0, 0);
   queue.insert(node);
   map[s1] = "";
 
@@ -78,7 +91,7 @@ std::vector<std::string> convert(const std::string &s1, const std::string &s2,
             }
           }
 
-          Node newNode(temp, lc_distance + num_diff);
+          Node newNode(temp, lc_distance + num_diff, lc_distance);
 
           queue.insert(newNode);
           map[temp] = node.word;
