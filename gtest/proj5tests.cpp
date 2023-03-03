@@ -3,6 +3,7 @@
 #include "convert.hpp"
 #include <fstream>
 #include <gtest/gtest.h>
+#include <string>
 #include <vector>
 
 namespace {
@@ -177,6 +178,52 @@ TEST(Additional1, Insert1) {
       EXPECT_EQ(mpq.min(), v[0]);
     }
   }
+}
+
+TEST(Additional1, Insert2) {
+  // Test case for empty insert and same insert
+  MyPriorityQueue<int> mpq;
+
+  mpq.insert(1);
+  mpq.insert(1);
+  mpq.insert(1);
+
+  EXPECT_EQ(mpq.min(), 1);
+
+  mpq.extractMin();
+  mpq.extractMin();
+  mpq.extractMin();
+
+  EXPECT_THROW(mpq.min(), PriorityQueueEmptyException);
+  EXPECT_THROW(mpq.extractMin(), PriorityQueueEmptyException);
+
+  mpq.insert(1);
+  mpq.insert(1);
+  mpq.insert(0);
+  mpq.insert(342423);
+
+  EXPECT_FALSE(mpq.isEmpty());
+
+  EXPECT_EQ(mpq.min(), 0);
+
+  mpq.extractMin();
+
+  EXPECT_EQ(mpq.min(), 1);
+
+  mpq.extractMin();
+
+  EXPECT_EQ(mpq.min(), 1);
+
+  mpq.extractMin();
+
+  EXPECT_EQ(mpq.min(), 342423);
+
+  mpq.extractMin();
+
+  EXPECT_THROW(mpq.min(), PriorityQueueEmptyException);
+  EXPECT_THROW(mpq.extractMin(), PriorityQueueEmptyException);
+  EXPECT_EQ(mpq.size(), 0);
+  EXPECT_TRUE(mpq.isEmpty());
 }
 
 TEST(Additional2, AntToFox) {
@@ -489,6 +536,91 @@ TEST(Additional2, AcornsToArisen) {
   std::string WORD_ONE = "acorns";
   std::string WORD_TWO = "arisen";
   auto CORRECT_LENGTH = 19;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_TRUE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, FurryToClean) {
+  std::string WORD_ONE = "furry";
+  std::string WORD_TWO = "clean";
+  auto CORRECT_LENGTH = 21;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_TRUE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, FurryToGleam) {
+  std::string WORD_ONE = "furry";
+  std::string WORD_TWO = "gleam";
+  auto CORRECT_LENGTH = 23;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_TRUE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, FurryToNotch) {
+  std::string WORD_ONE = "furry";
+  std::string WORD_TWO = "notch";
+  auto CORRECT_LENGTH = 21;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_TRUE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, FurryToQuell) {
+  std::string WORD_ONE = "furry";
+  std::string WORD_TWO = "quell";
+  auto CORRECT_LENGTH = 21;
+
+  std::unordered_set<std::string> words;
+  std::ifstream in("words.txt");
+  loadWordsIntoTable(words, in);
+
+  std::vector<std::string> r = convert(WORD_ONE, WORD_TWO, words);
+
+  std::ifstream in2("words.txt");
+
+  EXPECT_EQ(r.size(), CORRECT_LENGTH);
+  EXPECT_TRUE(validConversion(r, WORD_ONE, WORD_TWO, in2));
+}
+
+TEST(Additional2, FusedToGleam) {
+  std::string WORD_ONE = "fused";
+  std::string WORD_TWO = "gleam";
+  auto CORRECT_LENGTH = 21;
 
   std::unordered_set<std::string> words;
   std::ifstream in("words.txt");

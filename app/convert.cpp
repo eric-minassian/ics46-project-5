@@ -1,5 +1,6 @@
 #include "convert.hpp"
 #include "MyPriorityQueue.hpp"
+#include <algorithm>
 #include <map>
 #include <sstream>
 #include <string>
@@ -70,13 +71,13 @@ std::vector<std::string> convert(const std::string &s1, const std::string &s2,
         result.push_back(temp);
         temp = map[temp];
       }
-      for (unsigned i = 0; i < result.size() / 2; i++) {
-        std::swap(result[i], result[result.size() - i - 1]);
-      }
+
+      std::reverse(result.begin(), result.end());
+
       return result;
     }
 
-    for (unsigned i = 0; i < node.word.size(); i++) {
+    for (int i = 0; i < node.word.size(); i++) {
       for (char c = 'a'; c <= 'z'; c++) {
         std::string temp = node.word;
         temp[i] = c;
@@ -84,7 +85,7 @@ std::vector<std::string> convert(const std::string &s1, const std::string &s2,
         if (words.find(temp) != words.end() && map.find(temp) == map.end()) {
           map[temp] = node.word;
 
-          unsigned lc_distance = node.value + 1, num_diff = 0;
+          unsigned lc_distance = node.lc_distance + 1, num_diff = 0;
           for (unsigned j = 0; j < temp.size(); j++) {
             if (temp[j] != s2[j]) {
               num_diff++;
